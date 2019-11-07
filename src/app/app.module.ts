@@ -14,10 +14,8 @@ import { UsersService } from './user/users.service';
 import { FromNowPipe } from './pipes/from-now.pipe';
 import { ChatPageComponent } from './chat-page/chat-page.component';
 import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
-import { APP_BASE_HREF } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthService } from './auth.service';
 import { LoginComponent } from './login/login.component';
@@ -46,7 +44,6 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
     AngularFireAuthModule,
     RouterModule.forRoot(routes)
   ],
