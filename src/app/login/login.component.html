@@ -15,13 +15,13 @@
 
 <form class="form-inline" *ngIf="!(authService.userData | async)">
   <div class="form-group">
-    <label for="email">Email: (type <em>email</em>)</label>
+    <label for="email">Email: </label>
     <input class="form-control" 
            name="email" #email>
   </div>
 
   <div class="form-group">
-    <label for="password">Password: (type <em>password</em>)</label>
+    <label for="password">Password: </label>
     <input class="form-control" 
            type="password" 
            name="password" #password>
