@@ -2,6 +2,10 @@
     <app-chat-nav-bar></app-chat-nav-bar>
     <div class="container">
         <app-chat-threads></app-chat-threads>
-        <app-chat-window></app-chat-window>
+        <button
+        type="button" class="btn btn-primary pull-right"
+        (click)="onClick()">Toggle view</button>
+        <app-chat-window *ngIf="show">            
+        </app-chat-window>
     </div>
 </div>

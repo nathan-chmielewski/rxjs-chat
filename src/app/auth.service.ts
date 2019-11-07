@@ -7,7 +7,7 @@ import * as firebase from 'firebase';
   providedIn: 'root'
 })
 export class AuthService {
-    status: boolean;
+    status: boolean = false;
 
   constructor(private angularFireAuth:AngularFireAuth) {
    }
