@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChatWindowComponent } from './chat-window/chat-window.component';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
@@ -14,6 +13,21 @@ import { ThreadsService } from './thread/threads.service';
 import { UsersService } from './user/users.service';
 import { FromNowPipe } from './pipes/from-now.pipe';
 import { ChatPageComponent } from './chat-page/chat-page.component';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from '../environments/environment';
+import { APP_BASE_HREF } from '@angular/common';
+import { Routes, RouterModule } from '@angular/router';
+import { AuthService } from './auth.service';
+import { LoginComponent } from './login/login.component';
+import { LoggedInGuard } from './logged-in.guard';
+
+const routes: Routes = [
+    { path: '', redirectTo: 'app-login', pathMatch: 'full' },
+    { path: 'app-login', component: LoginComponent },
+    { path: 'app-chat-page', component: ChatPageComponent, canActivate: [ LoggedInGuard ] }
+];
 
 @NgModule({
   declarations: [
@@ -25,14 +39,18 @@ import { ChatPageComponent } from './chat-page/chat-page.component';
     ChatNavBarComponent,
     FromNowPipe,
     ChatPageComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    RouterModule.forRoot(routes)
   ],
-  providers: [MessagesService, ThreadsService, UsersService],
+  providers: [MessagesService, ThreadsService, UsersService, AuthService, LoggedInGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
