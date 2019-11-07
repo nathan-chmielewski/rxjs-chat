@@ -7,21 +7,12 @@ import * as firebase from 'firebase';
   providedIn: 'root'
 })
 export class AuthService {
-    userData: Observable<firebase.User>;
+    status: boolean;
 
   constructor(private angularFireAuth:AngularFireAuth) {
-      this.userData = angularFireAuth.authState;
    }
 
-//   login(email: string, password: string): boolean {
-    //   if (user === 'user' && password === 'password') {
-    //       localStorage.setItem('username', user);
-    //       return true;
-    //   }
-    //   return false;
-    // }
-
-    login(email: string, password: string) {
+  login(email: string, password: string) {
     this.angularFireAuth
     .auth
     .signInWithEmailAndPassword(email, password)
@@ -29,7 +20,7 @@ export class AuthService {
       console.log('Successfully signed in!');
     })
     .catch(err => {
-      console.log('Something is wrong:',err.message);
+      console.log('Incorrect credentials:', err.message);
     });
   }
 
@@ -47,14 +38,17 @@ export class AuthService {
 //       return localStorage.getItem('username');
 //   }
 
-  isLoggedIn() {
+  isLoggedIn(): boolean {
     //   return false;
     this.angularFireAuth.authState.subscribe(res => {
         if (res && res.uid) {
           console.log('user is logged in');
+          this.status = true;
         } else {
           console.log('user not logged in');
+          this.status = false;
         }
       });
+      return this.status;
   }
 }

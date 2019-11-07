@@ -16,7 +16,8 @@ export class LoggedInGuard implements CanActivate {
       // const isLoggedIn = this.authService.isLoggedIn();
       // console.log('canActivate', isLoggedIn);
       // return isLoggedIn;
-      this.authService.isLoggedIn();
-      return false;
+      const isLoggedIn = this.authService.isLoggedIn();
+      console.log('canActivate', isLoggedIn);
+      return isLoggedIn;
   }
 }
